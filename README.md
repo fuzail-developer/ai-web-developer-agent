@@ -1,42 +1,18 @@
-# JWT Auth Dashboard
+# AI Web Developer Agent
 
 ## Overview
-
-This application is a JWT authentication dashboard built with Flask. It includes user registration, login, and logout functionalities, along with a protected API endpoint to list users.
+An AI-powered full-stack web development agent that generates production-ready Flask applications with authentication, logging, and retry mechanisms.
 
 ## Features
+- AI-based Flask app generation
+- Structured prompt system
+- Logging system
+- Retry logic
+- Environment validation
 
-- User Registration
-- User Login
-- User Logout
-- Protected API endpoint
-- Dark Neon UI
+## Installation
 
-## Setup
-
-1. Clone the repository:
-
-   bash
-   git clone <repository-url>
-   cd <repository-directory>
-   
-
-2. Build and run the application using Docker:
-
-   bash
-   docker-compose up --build
-   
-
-3. Access the application at `http://localhost:5000`.
-
-## Testing
-
-Run tests using pytest:
-
-bash
-pytest
-
-
-## License
-
-This project is licensed under the MIT License.
+git clone https://github.com/fuzail-developer/ai-web-developer-agent.git
+cd ai-web-developer-agent
+pip install -r requirements.txt
+python ai-web-developer-agent.py
