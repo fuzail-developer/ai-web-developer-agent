@@ -12,20 +12,24 @@ An AI-powered full-stack web development agent that generates production-ready F
 
 ## Installation
 
+```bash
 git clone https://github.com/fuzail-developer/ai-web-developer-agent.git
 cd ai-web-developer-agent
 pip install -r requirements.txt
 python ai-web-developer-agent.py
+```
 
+## Project Structure
 
-"""bash
+```bash
 ai-web-developer-agent/
 │── ai-web-developer-agent.py
 │── requirements.txt
 │── README.md
 │── .gitignore
 │── LICENSE
-"""
+```
+
 
 
 
