@@ -18,7 +18,7 @@ pip install -r requirements.txt
 python ai-web-developer-agent.py
 
 
-"""
+"""bash
 ai-web-developer-agent/
 │── ai-web-developer-agent.py
 │── requirements.txt
@@ -26,6 +26,7 @@ ai-web-developer-agent/
 │── .gitignore
 │── LICENSE
 """
+
 
 
 
