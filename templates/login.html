@@ -1,0 +1,26 @@
+﻿{% extends 'base.html' %}
+{% block title %}Login | CRM SaaS{% endblock %}
+{% block content %}
+<section class="auth-shell">
+    <div class="auth-card auth-reveal">
+        <p class="eyebrow">Multi-Tenant CRM</p>
+        <h1>Welcome Back</h1>
+        <p class="subtext">Role-based secure login for your tenant workspace.</p>
+        <form method="POST" novalidate class="auth-form">
+            {{ form.hidden_tag() }}
+            <div class="form-row">
+                {{ form.email.label(class_='field-label') }}
+                {{ form.email(placeholder='name@company.com') }}
+                {% for error in form.email.errors %}<p class="error">{{ error }}</p>{% endfor %}
+            </div>
+            <div class="form-row">
+                {{ form.password.label(class_='field-label') }}
+                {{ form.password(placeholder='Password') }}
+                {% for error in form.password.errors %}<p class="error">{{ error }}</p>{% endfor %}
+            </div>
+            {{ form.submit(class_='btn-primary') }}
+        </form>
+        <p class="auth-footnote">New company? <a href="{{ url_for('signup') }}">Create tenant account</a></p>
+    </div>
+</section>
+{% endblock %}

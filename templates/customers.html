@@ -1,0 +1,43 @@
+﻿{% extends 'base.html' %}
+{% block title %}Customers | CRM SaaS{% endblock %}
+{% block content %}
+<section class="panel auth-reveal">
+    <div class="panel-head split">
+        <div>
+            <h1>Customer Management</h1>
+            <p class="subtext">Track contacts, leads, and purchases per tenant.</p>
+        </div>
+        {% if current_user.role in ['admin', 'sales', 'manager'] %}
+        <a class="btn-primary mini" href="{{ url_for('customer_new') }}">+ Add Customer</a>
+        {% endif %}
+    </div>
+
+    <form method="GET" class="filter-row">
+        <input type="text" name="city" value="{{ q_city }}" placeholder="Filter by city (Agra)">
+        <input type="text" name="year" value="{{ q_year }}" placeholder="Purchase year (2025)">
+        <button type="submit" class="btn-ghost">Search</button>
+    </form>
+
+    {% if rows %}
+    <table class="grid-table">
+        <thead>
+            <tr><th>Name</th><th>Email</th><th>City</th><th>Status</th><th>Year</th><th>Amount (INR)</th></tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                <td>{{ row.name }}</td>
+                <td>{{ row.email or '-' }}</td>
+                <td>{{ row.city or '-' }}</td>
+                <td>{{ row.status|title }}</td>
+                <td>{{ row.purchase_year or '-' }}</td>
+                <td>{{ '%.2f'|format(row.amount) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state"><h3>No results</h3><p>Add customers or adjust search filters.</p></div>
+    {% endif %}
+</section>
+{% endblock %}

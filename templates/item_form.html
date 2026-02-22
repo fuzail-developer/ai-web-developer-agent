@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% if item %}Edit{% else %}New{% endif %} Item</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#f0f0f0;font-family:system-ui,sans-serif;min-height:100vh}
+.wrap{max-width:900px;margin:2rem auto;padding:1rem}
+.card{background:#13131a;border:1px solid #222230;border-radius:14px;padding:1.2rem}
+label{display:block;margin:.8rem 0 .3rem;color:#aaa;font-size:.85rem}
+input,textarea{width:100%;background:#0d0d14;border:1px solid #2a2a38;border-radius:10px;padding:.8rem;color:#f0f0f0}
+textarea{min-height:180px;resize:vertical}
+.row{display:flex;gap:.7rem;margin-top:1rem;flex-wrap:wrap}
+button,a{padding:.7rem 1rem;border-radius:9px;border:none;cursor:pointer;text-decoration:none}
+.btn-primary{background:#f5c842;color:#000;font-weight:700}
+.btn-muted{background:#1f2230;color:#f0f0f0}
+.msg{margin-top:.8rem;font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h2>{% if item %}Edit Item{% else %}Create Item{% endif %}</h2>
+    <label>Title</label>
+    <input id="title" type="text" maxlength="100" value="{{ item.title if item else '' }}" placeholder="Enter title">
+    <label>Content / Data (JSON or plain text)</label>
+    <textarea id="content" placeholder='{"summary":"..."}'>{% if item %}{{ item.data }}{% endif %}</textarea>
+    <div class="row">
+      <button class="btn-primary" onclick="saveItem()">Save</button>
+      <a class="btn-muted" href="/dashboard">Back</a>
+    </div>
+    <div id="msg" class="msg"></div>
+  </div>
+</div>
+<script>
+async function saveItem() {
+  const csrfToken = "{{ csrf_token() }}";
+  const title = document.getElementById('title').value.trim();
+  const raw = document.getElementById('content').value.trim();
+  const msg = document.getElementById('msg');
+  if (!title) { msg.textContent = 'Title is required'; return; }
+  let payload = {};
+  try {
+    payload = raw ? JSON.parse(raw) : {};
+  } catch {
+    payload = { content: raw };
+  }
+  payload.title = title;
+  {% if item %}payload.id = {{ item.id }};{% endif %}
+  const res = await fetch('/item/save', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken },
+    body: JSON.stringify(payload)
+  });
+  const data = await res.json();
+  if (data.success && data.id) {
+    window.location.href = '/item/' + data.id;
+    return;
+  }
+  msg.textContent = data.error || 'Save failed';
+}
+</script>
+</body>
+</html>

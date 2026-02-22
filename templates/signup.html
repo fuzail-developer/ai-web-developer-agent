@@ -1,0 +1,40 @@
+﻿{% extends 'base.html' %}
+{% block title %}Signup | CRM SaaS{% endblock %}
+{% block content %}
+<section class="auth-shell">
+    <div class="auth-card auth-reveal">
+        <p class="eyebrow">Launch Workspace</p>
+        <h1>Create Tenant Account</h1>
+        <p class="subtext">Setup company + admin/user role in one step.</p>
+        <form method="POST" novalidate class="auth-form">
+            {{ form.hidden_tag() }}
+            <div class="form-row">
+                {{ form.company_name.label(class_='field-label') }}
+                {{ form.company_name(placeholder='Acme Pvt Ltd') }}
+                {% for error in form.company_name.errors %}<p class="error">{{ error }}</p>{% endfor %}
+            </div>
+            <div class="form-row">
+                {{ form.full_name.label(class_='field-label') }}
+                {{ form.full_name(placeholder='Fuzail', value='Fuzail') }}
+                {% for error in form.full_name.errors %}<p class="error">{{ error }}</p>{% endfor %}
+            </div>
+            <div class="form-row">
+                {{ form.email.label(class_='field-label') }}
+                {{ form.email(placeholder='name@company.com') }}
+                {% for error in form.email.errors %}<p class="error">{{ error }}</p>{% endfor %}
+            </div>
+            <div class="form-row">
+                {{ form.password.label(class_='field-label') }}
+                {{ form.password(placeholder='Minimum 6 chars') }}
+                {% for error in form.password.errors %}<p class="error">{{ error }}</p>{% endfor %}
+            </div>
+            <div class="form-row">
+                {{ form.role.label(class_='field-label') }}
+                {{ form.role() }}
+            </div>
+            {{ form.submit(class_='btn-primary') }}
+        </form>
+        <p class="auth-footnote">Already registered? <a href="{{ url_for('login') }}">Login</a></p>
+    </div>
+</section>
+{% endblock %}

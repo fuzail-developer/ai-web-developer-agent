@@ -1,0 +1,19 @@
+﻿{% extends 'base.html' %}
+{% block title %}Billing | CRM SaaS{% endblock %}
+{% block content %}
+<section class="panel auth-reveal">
+    <h1>Billing & Subscriptions</h1>
+    <p class="subtext">Stripe integration status for tenant recurring payments.</p>
+
+    {% if stripe_configured %}
+    <div class="alert alert-success">Stripe is configured. You can enable checkout + auto-invoice flow.</div>
+    {% else %}
+    <div class="alert alert-warning">Stripe key missing. Set <code>STRIPE_SECRET_KEY</code> in environment to enable payments.</div>
+    {% endif %}
+
+    <div class="empty-state">
+        <h3>Next Step</h3>
+        <p>Connect Stripe checkout session + webhook for subscription renewal and invoice sync.</p>
+    </div>
+</section>
+{% endblock %}

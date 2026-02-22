@@ -1,0 +1,28 @@
+﻿{% extends 'base.html' %}
+{% block title %}Analytics | CRM SaaS{% endblock %}
+{% block content %}
+<section class="panel auth-reveal">
+    <h1>Revenue Analytics</h1>
+    <p class="subtext">Monthly tenant revenue trend from paid customers.</p>
+    <canvas id="revChart" height="110"></canvas>
+</section>
+<script>
+const labels = {{ labels|tojson }};
+const values = {{ values|tojson }};
+new Chart(document.getElementById('revChart'), {
+  type: 'line',
+  data: {
+    labels,
+    datasets: [{
+      label: 'Revenue (INR)',
+      data: values,
+      borderColor: '#37c4a6',
+      backgroundColor: 'rgba(55,196,166,0.15)',
+      fill: true,
+      tension: 0.25
+    }]
+  },
+  options: { responsive: true, maintainAspectRatio: false }
+});
+</script>
+{% endblock %}

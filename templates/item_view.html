@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ item.title }}</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#f0f0f0;font-family:system-ui,sans-serif;min-height:100vh}
+.wrap{max-width:900px;margin:2rem auto;padding:1rem}
+.card{background:#13131a;border:1px solid #222230;border-radius:14px;padding:1.2rem}
+pre{white-space:pre-wrap;word-break:break-word;background:#0d0d14;border:1px solid #2a2a38;border-radius:10px;padding:1rem;margin-top:1rem}
+.row{display:flex;gap:.7rem;margin-top:1rem;flex-wrap:wrap}
+a{padding:.7rem 1rem;border-radius:9px;text-decoration:none}
+.btn-primary{background:#f5c842;color:#000;font-weight:700}
+.btn-muted{background:#1f2230;color:#f0f0f0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h2>{{ item.title }}</h2>
+    <div style="color:#888;margin-top:.3rem;">Updated {{ item.updated_at.strftime('%b %d, %Y %H:%M') }}</div>
+    <pre>{{ data | tojson(indent=2) }}</pre>
+    <div class="row">
+      <a class="btn-primary" href="/item/{{ item.id }}/edit">Edit</a>
+      <a class="btn-muted" href="/item/{{ item.id }}/pdf">Download PDF</a>
+      <a class="btn-muted" href="/dashboard">Back</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

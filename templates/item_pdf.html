@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ item.title }}</title>
+<style>
+body{font-family:Arial,sans-serif;color:#111;font-size:12px;padding:20px}
+h1{font-size:24px;margin:0 0 8px}
+.muted{color:#666;font-size:11px;margin-bottom:14px}
+pre{white-space:pre-wrap;word-wrap:break-word;border:1px solid #ddd;padding:10px;border-radius:6px;background:#fafafa}
+</style>
+</head>
+<body>
+  <h1>{{ item.title }}</h1>
+  <div class="muted">Updated {{ item.updated_at.strftime('%b %d, %Y %H:%M') }}</div>
+  <pre>{{ data | tojson(indent=2) }}</pre>
+</body>
+</html>

@@ -1,0 +1,38 @@
+﻿{% extends 'base.html' %}
+{% block title %}Dashboard | CRM SaaS{% endblock %}
+{% block content %}
+<section class="panel auth-reveal">
+    <div class="panel-head">
+        <div>
+            <p class="eyebrow">Tenant Dashboard</p>
+            <h1>{{ current_user.tenant.name }}</h1>
+            <p class="subtext">Role: {{ current_user.role|title }} | User: {{ current_user.full_name }}</p>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <article class="stat-card"><p class="stat-label">Customers</p><p class="stat-value">{{ total_customers }}</p></article>
+        <article class="stat-card"><p class="stat-label">Leads</p><p class="stat-value">{{ total_leads }}</p></article>
+        <article class="stat-card"><p class="stat-label">Revenue (INR)</p><p class="stat-value">{{ '%.2f'|format(revenue) }}</p></article>
+    </div>
+</section>
+
+<section class="panel">
+    <h2>Recent Customer Activity</h2>
+    {% if recent_customers %}
+    <ul class="post-list">
+        {% for item in recent_customers %}
+        <li class="post-item">
+            <div>
+                <p class="post-title">{{ item.name }} ({{ item.status|title }})</p>
+                <p class="post-meta">{{ item.city or 'N/A' }} | {{ item.email or 'No email' }} | {{ item.created_at.strftime('%d %b %Y') }}</p>
+            </div>
+            <span class="tag">INR {{ '%.2f'|format(item.amount) }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="empty-state"><h3>No customers yet</h3><p>Add your first lead from Customers section.</p></div>
+    {% endif %}
+</section>
+{% endblock %}
